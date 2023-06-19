@@ -1,5 +1,26 @@
+import { cp, mkdir, readdir } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 const copy = async () => {
-    // Write your code here 
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+
+  const message = 'FS operation failed';
+
+  const folder = resolve(__dirname, 'files');
+  const folderCopy = resolve(__dirname, 'files_copy');
+
+  try {
+    const files = await readdir(folder);
+    await mkdir(folderCopy);
+
+    await new Promise((res) => res(files.map(async (file) => (
+      cp(`${folder}/${file}`, `${folderCopy}/${file}`)
+    ))));
+  } catch {
+    console.error(message);
+  }
 };
 
 await copy();
