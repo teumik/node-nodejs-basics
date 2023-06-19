@@ -2,8 +2,6 @@ import { createServer as createServerHttp } from 'node:http';
 import { release, version } from 'node:os';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import a from './files/a.json' assert { type: "json" };
-import b from './files/b.json' assert { type: "json" };
 import './files/c.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -14,9 +12,13 @@ const random = Math.random();
 let unknownObject;
 
 if (random > 0.5) {
-  unknownObject = a;
+  unknownObject = await import('./files/a.json', {
+    assert: { type: 'json' }
+  });
 } else {
-  unknownObject = b;
+  unknownObject = await import('./files/b.json', {
+    assert: { type: 'json' }
+  });
 }
 
 console.log(`Release ${release()}`);
