@@ -15,9 +15,12 @@ const copy = async () => {
     const files = await readdir(folder);
     await mkdir(folderCopy);
 
-    await new Promise((res) => res(files.map(async (file) => (
-      cp(`${folder}/${file}`, `${folderCopy}/${file}`)
-    ))));
+    await new Promise((res) => res(files.map(async (file) => {
+      const fileOrigin = resolve(folder, file);
+      const fileCopy = resolve(folderCopy, file);
+
+      return cp(fileOrigin, fileCopy);
+    })));
   } catch {
     console.error(message);
   }
