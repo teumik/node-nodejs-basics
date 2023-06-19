@@ -10,13 +10,13 @@ const create = async () => {
   const message = 'FS operation failed';
   const file = 'fresh.txt';
 
+  const path = resolve(__dirname, 'files', file);
+
   try {
-    const path = resolve(__dirname, 'files', file);
     await readFile(path);
     console.error(message);
   } catch {
     try {
-      const path = resolve(__dirname, 'files', file);
       await writeFile(path, content);
     } catch (error) {
       console.error(error);
