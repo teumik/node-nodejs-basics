@@ -10,6 +10,7 @@ import { cat } from './commands/cat.js';
 import { add } from './commands/add.js';
 import { rn } from './commands/rn.js';
 import { parsePaths } from './helpers/parsePaths.js';
+import { cp } from './commands/cp.js';
 
 const start = () => {
   const parsedUsername = parseUsername();
@@ -56,6 +57,11 @@ const start = () => {
 
       case 'rn': {
         rn(parsePaths(path.join(' ')));
+        break;
+      };
+
+      case 'cp': {
+        cp(parsePaths(path.join(' ')));
         break;
       };
 
