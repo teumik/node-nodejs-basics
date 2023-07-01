@@ -1,7 +1,7 @@
 import { chdir } from 'process';
 
 const cd = (path) => {
-  chdir(`${path.join(' ')}`);
+  chdir(`${path}`);
 };
 
 export { cd };
