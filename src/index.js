@@ -11,6 +11,9 @@ import { add } from './commands/add.js';
 import { rn } from './commands/rn.js';
 import { parsePaths } from './helpers/parsePaths.js';
 import { cp } from './commands/cp.js';
+import { mv } from './commands/mv.js';
+import { rm } from './commands/rm.js';
+import { os } from './commands/os.js';
 
 const start = () => {
   const parsedUsername = parseUsername();
@@ -22,7 +25,7 @@ const start = () => {
   onExit(goodbyeMessage);
 
   stdin.on('data', (data) => {
-    const [command, ...path] = data.toString().trim().split(' ');
+    const [command, ...args] = data.toString().trim().split(' ');
 
     switch (command) {
       case 'sp': {
@@ -36,7 +39,7 @@ const start = () => {
       };
 
       case 'cd': {
-        cd(path.join(' '));
+        cd(args.join(' '));
         break;
       };
 
@@ -46,22 +49,37 @@ const start = () => {
       };
 
       case 'cat': {
-        cat(path.join(' '));
+        cat(args.join(' '));
         break;
       };
 
       case 'add': {
-        add(path.join(' '));
+        add(args.join(' '));
         break;
       };
 
       case 'rn': {
-        rn(parsePaths(path.join(' ')));
+        rn(parsePaths(args.join(' ')));
         break;
       };
 
       case 'cp': {
-        cp(parsePaths(path.join(' ')));
+        cp(parsePaths(args.join(' ')));
+        break;
+      };
+
+      case 'mv': {
+        mv(parsePaths(args.join(' ')));
+        break;
+      };
+
+      case 'rm': {
+        rm(args.join(' '));
+        break;
+      };
+
+      case 'os': {
+        os(args);
         break;
       };
 
