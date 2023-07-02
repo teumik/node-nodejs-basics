@@ -16,7 +16,7 @@ const cp = async (paths) => {
   const readable = createReadStream(originPath);
   const writable = createWriteStream(resolve(destPath, filename));
 
-  readable.pipe(writable);
+  return readable.pipe(writable);
 };
 
 export { cp };
